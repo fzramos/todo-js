@@ -7,29 +7,38 @@
     <meta name="Description" content="Enter your description here"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Title</title>
     </head>
-<body class = "bg-dark">
+<body class = "bg-dark text-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">To-Do List</a>
+        <a class="navbar-brand" href="#">
+          
+          <h1 class="pl-5 display-2">To-Do List</h1>
+        </a>
     </nav>
 
     <div class="container">
       <form>
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" id="season" placeholder="Task Name" name="season">
+            <input type="text" class="form-control" id="task_text" placeholder="Task Name" name="task_text">
           </div>
           <div class="col">
-            <button type="button" class="btn btn-primary btn-block" onclick="makeTable()">Submit</button>
+            <button type="button" class="btn btn-primary" onclick="newItem()">Submit</button>
         </div>
         </div>
       </form>
-      <div class="task-list">
-        <h1>task list will go here</h1>
+      <div class="todo-list">
+        <h1>Tasks</h1>
+        <div class="d-flex flex-row pt-3">
+          <p>sdfasdf</p>
+          <button class="btn btn-primary ml-2">Completed</button>
+        </div>
       </div>
     </div>
+
+    <!-- TODO add completed list! -->
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
