@@ -29,12 +29,23 @@
         </div>
         </div>
       </form>
-      <div class="todo-list">
-        <h1>Tasks</h1>
-        <div class="d-flex flex-row pt-3">
-          <p>sdfasdf</p>
-          <button class="btn btn-primary ml-2">Completed</button>
-        </div>
+      <div class="lists">
+        <h1 class="pt-3">Tasks</h1>
+        <ul class="list-group" id="todo-list">
+          <li class="list-group-item list-group-item-primary d-flex flex-row p-3">
+            <p>sdfasdf</p>
+            <button class="btn btn-primary ml-2" onclick="completedTask(this)">Completed</button>
+          </li>
+          <!-- TODO li item that is a button that lets you add new task via popup form -->
+          <!-- <li class="list-group-item">Vestibulum at eros</li> -->
+        </ul>
+
+        <h1 class="pt-3">Completed</h1>
+        <ul class="list-group" id="completed-list">
+          <!-- <li class="list-group-item list-group-item-primary d-flex flex-row p-3">
+            <p>sdfasdf</p>
+          </li> -->
+        </ul>
       </div>
     </div>
 
