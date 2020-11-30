@@ -9,6 +9,7 @@ const newItem = () => {
     let new_todo_item = todo_item.cloneNode(true);
 
     new_todo_item.firstElementChild.innerHTML = task_text;
+    const task_form = document.getElementById('task-form').reset();
 
     document.getElementById("todo-list").appendChild(new_todo_item);
 }
