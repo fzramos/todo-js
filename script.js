@@ -17,5 +17,15 @@ const newItem = () => {
 const completedTask = (elmnt) => {
     console.log(elmnt.parentElement);
     // TODO will move the contents of this element to the Completed list !without! button
+    // completed-list = 
+    // completed-list.appendChild(todo-list)
+    const completed_template = document.getElementById('completed-template');
+    const new_complete = completed_template.cloneNode(true);
+    new_complete.appendChild(elmnt.parentElement.firstElementChild)
+    elmnt.parentElement.remove();
+    new_complete.hidden = 'false';
+    document.getElementById("completed-list").appendChild(new_complete);
+
+
 
 }
