@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>Title</title>
+    <title>To-Do List</title>
     </head>
 <body class = "bg-dark text-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -22,37 +22,31 @@
       <form id="task-form">
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" id="task_text" placeholder="Task Name" name="task_text">
+            <input type="text" class="form-control" id="input_box" placeholder="New Task Name" name="task_text">
           </div>
           <div class="col">
-            <button type="button" class="btn btn-primary" onclick="newItem()">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         </div>
       </form>
       <div class="lists">
         <h1 class="pt-3">Tasks</h1>
         <ul class="list-group" id="todo-list">
-          <li class="list-group-item list-group-item-primary d-flex flex-row p-3">
+          <!-- <li class="list-group-item list-group-item-primary d-flex flex-row p-3">
             <p>sdfasdf</p>
             <button class="btn btn-primary ml-2" onclick="completedTask(this)">Completed</button>
-          </li>
+          </li> -->
           <!-- TODO li item that is a button that lets you add new task via popup form -->
           <!-- <li class="list-group-item">Vestibulum at eros</li> -->
         </ul>
 
         <h1 class="pt-3">Completed</h1>
         <ul class="list-group" id="completed-list">
-          <li style="display: hidden;" class="list-group-item list-group-item-primary d-flex flex-row p-3" id='completed-template'>
-          </li>
+          <!-- <li class="list-group-item list-group-item-primary d-flex flex-row p-3" id='completed-template'>
+          </li> -->
         </ul>
       </div>
     </div>
-
-    <!-- templates -->
-
-
-    <!-- TODO add completed list! -->
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha2/js/bootstrap.min.js"></script>
