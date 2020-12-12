@@ -22,7 +22,16 @@ function addTodo(event) {
 
     const newTodo = document.createElement('li');
     const removeBtn = document.createElement('button');
+    const editBtn = document.createElement('button');
     removeBtn.innerHTML = 'Complete';
+
+    // edit button
+    editBtn.type='button';
+    editBtn.classList.add('btn', 'btn-primary', 'edit');
+    editBtn.setAttribute('data-bs-toggle', "modal");
+    editBtn.setAttribute('data-bs-target', "#staticBackdrop");
+    editBtn.innerHTML = "Edit"
+
 
     // Adding input data to new todo list item
     newTodo.innerHTML = input_box.value;
@@ -33,6 +42,7 @@ function addTodo(event) {
 
     // Adding complete button to new todo list item
     newTodo.appendChild(removeBtn);
+    newTodo.appendChild(editBtn);
     // Adding new todo item to todo list
     todo_list.appendChild(newTodo);
 
@@ -44,7 +54,8 @@ function items(event) {
     // console.log(event.target.classList.contains('complete'))
     if (event.target.classList.contains('complete')) {
         const newComplete = document.createElement('li');
-        newComplete.innerHTML = event.target.parentElement.innerHTML;
+        newComplete.innerHTML = event.target.parentElement.firstChild.textContent;
+        // deleteChildren(newComplete);
         // TODO only text, not button
         newComplete.classList.add('list-group-item', 'list-group-item-secondary');
         completed_list.appendChild(newComplete);
