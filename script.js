@@ -2,6 +2,7 @@
 const form = document.querySelector('#task-form');
 const input_box = document.getElementById('input_box');
 const todo_list = document.querySelector('#todo-list');
+const completed_list = document.querySelector('#completed-list');
 
 // event listeners
 form.addEventListener('submit', addTodo);
@@ -16,18 +17,44 @@ document.addEventListener('DOMContentLoaded', getTodos);
 function addTodo(event) {
     event.preventDefault();
     // console.log(event);
-    console.log(input_box.value);
+    // console.log(input_box.value);
+
+
+    const newTodo = document.createElement('li');
+    const removeBtn = document.createElement('button');
+    removeBtn.innerHTML = 'Complete';
+
+    // Adding input data to new todo list item
+    newTodo.innerHTML = input_box.value;
+    // adding bootstrap styling classes
+    newTodo.classList.add('list-group-item', 'list-group-item-primary');
+    removeBtn.classList.add('btn', 'btn-primary', 'complete');
+    
+
+    // Adding complete button to new todo list item
+    newTodo.appendChild(removeBtn);
+    // Adding new todo item to todo list
+    todo_list.appendChild(newTodo);
+
     // event.target.reset();
     form.reset();
-    
 }
 
 function items(event) {
-    console.log('items')
+    // console.log(event.target.classList.contains('complete'))
+    if (event.target.classList.contains('complete')) {
+        const newComplete = document.createElement('li');
+        newComplete.innerHTML = event.target.parentElement.innerHTML;
+        // TODO only text, not button
+        newComplete.classList.add('list-group-item', 'list-group-item-secondary');
+        completed_list.appendChild(newComplete);
+        event.target.parentElement.remove();
+    }
 }
 
 function getTodos(event) {
     console.log('getTodos')
+
 }
 
 
