@@ -22,15 +22,22 @@ function addTodo(event) {
 
     const newTodo = document.createElement('li');
     const removeBtn = document.createElement('button');
-    const editBtn = document.createElement('button');
+    // const editBtn = document.createElement('button');
+    const deleBtn = document.createElement('button');
+
     removeBtn.innerHTML = 'Complete';
 
     // edit button
-    editBtn.type='button';
-    editBtn.classList.add('btn', 'btn-primary', 'edit');
-    editBtn.setAttribute('data-bs-toggle', "modal");
-    editBtn.setAttribute('data-bs-target', "#staticBackdrop");
-    editBtn.innerHTML = "Edit"
+    // editBtn.type='button';
+    // editBtn.classList.add('btn', 'btn-primary', 'edit');
+    // editBtn.setAttribute('data-bs-toggle', "modal");
+    // editBtn.setAttribute('data-bs-target', "#staticBackdrop");
+    // editBtn.innerHTML = "Edit"
+
+    // delete button
+    deleBtn.type='button';
+    deleBtn.classList.add('btn', 'btn-danger', 'delete');
+    deleBtn.innerHTML = "Delete"
 
 
     // Adding input data to new todo list item
@@ -42,7 +49,8 @@ function addTodo(event) {
 
     // Adding complete button to new todo list item
     newTodo.appendChild(removeBtn);
-    newTodo.appendChild(editBtn);
+    newTodo.appendChild(deleBtn);
+    // newTodo.appendChild(editBtn);
     // Adding new todo item to todo list
     todo_list.appendChild(newTodo);
 
@@ -59,6 +67,8 @@ function items(event) {
         // TODO only text, not button
         newComplete.classList.add('list-group-item', 'list-group-item-secondary');
         completed_list.appendChild(newComplete);
+        event.target.parentElement.remove();
+    } else if (event.target.classList.contains('delete')){
         event.target.parentElement.remove();
     }
 }
