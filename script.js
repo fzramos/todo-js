@@ -6,6 +6,7 @@ const completed_list = document.querySelector('#completed-list');
 
 // event listeners
 form.addEventListener('submit', addTodo);
+// form.addEventListener('button', resetLocal);
 todo_list.addEventListener('click', items);
 document.addEventListener('DOMContentLoaded', getTodos);
 
@@ -52,7 +53,7 @@ function addTodo(event) {
     todo_list.appendChild(newTodo);
 
     // add new todo to local storage
-    saveToLocal(newTodo.innerHTML, 'todos');
+    saveToLocal(input_box.value, 'todos');
     
     // event.target.reset();
     form.reset();
@@ -71,10 +72,13 @@ function items(event) {
         // remove from local storage todos list
         removeTodos(newComplete.innerHTML);
         // add to local storage complete list
-        saveToLocal(newComplete.innerHTML, 'todos');
+        saveToLocal(newComplete.innerHTML, 'completes');
 
         event.target.parentElement.remove();
     } else if (event.target.classList.contains('delete')){
+        // remove from local storage todos list
+        removeTodos(event.target.parentElement.firstChild.textContent);
+
         event.target.parentElement.remove();
     }
 }
@@ -110,3 +114,8 @@ function removeTodos(todo) {
     todos.splice(todos.indexOf(todoIndex), 1); // second argumenrt is amount.
     localStorage.setItem('todos', JSON.stringify(todos)); // set back the local storage
 }
+
+document.getElementById("reset").addEventListener("click", function() {
+    localStorage.clear();
+    location.reload(); 
+}); 
