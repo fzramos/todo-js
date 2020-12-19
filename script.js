@@ -1,31 +1,121 @@
-const newItem = () => {
-    let task_text = document.getElementById('task_text').value;
-    // console.log(task_text);
+// Declare globals
+const form = document.querySelector('#task-form');
+const input_box = document.getElementById('input_box');
+const todo_list = document.querySelector('#todo-list');
+const completed_list = document.querySelector('#completed-list');
 
-    // copying list item and appending new todo-task list item
-    // const list_item = document.createElement('')
-    let todo_item = document.getElementById('todo-list').firstElementChild;
-    console.log(todo_item)
-    let new_todo_item = todo_item.cloneNode(true);
+// event listeners
+form.addEventListener('submit', addTodo);
+// form.addEventListener('button', resetLocal);
+todo_list.addEventListener('click', items);
+document.addEventListener('DOMContentLoaded', getTodos);
 
-    new_todo_item.firstElementChild.innerHTML = task_text;
-    const task_form = document.getElementById('task-form').reset();
+// functions
+/**
+ * Adds todo-list item using user form input text
+ * @param {HTMLFormElement} event
+ */
+function addTodo(event) {
+    event.preventDefault();
 
-    document.getElementById("todo-list").appendChild(new_todo_item);
+    const newTodo = document.createElement('li');
+    const completeBtn = document.createElement('button');
+    // const editBtn = document.createElement('button');
+    const deleBtn = document.createElement('button');
+
+    completeBtn.innerHTML = 'Complete';
+
+    // edit button
+    // editBtn.type='button';
+    // editBtn.classList.add('btn', 'btn-primary', 'edit');
+    // editBtn.setAttribute('data-bs-toggle', "modal");
+    // editBtn.setAttribute('data-bs-target', "#staticBackdrop");
+    // editBtn.innerHTML = "Edit"
+
+    // delete button
+    deleBtn.type='button';
+    deleBtn.classList.add('btn', 'btn-danger', 'delete');
+    deleBtn.innerHTML = "Delete"
+
+
+    // Adding input data to new todo list item
+    newTodo.innerHTML = input_box.value;
+    // adding bootstrap styling classes
+    newTodo.classList.add('list-group-item', 'list-group-item-primary');
+    completeBtn.classList.add('btn', 'btn-primary', 'complete');
+    
+
+    // Adding buttons to new todo list item
+    newTodo.appendChild(completeBtn);
+    newTodo.appendChild(deleBtn);
+    // newTodo.appendChild(editBtn);
+    // Adding new todo item to todo list
+    todo_list.appendChild(newTodo);
+
+    // add new todo to local storage
+    saveToLocal(input_box.value, 'todos');
+    
+    // event.target.reset();
+    form.reset();
 }
 
-const completedTask = (elmnt) => {
-    console.log(elmnt.parentElement);
-    // TODO will move the contents of this element to the Completed list !without! button
-    // completed-list = 
-    // completed-list.appendChild(todo-list)
-    const completed_template = document.getElementById('completed-template');
-    const new_complete = completed_template.cloneNode(true);
-    new_complete.appendChild(elmnt.parentElement.firstElementChild)
-    elmnt.parentElement.remove();
-    new_complete.hidden = 'false';
-    document.getElementById("completed-list").appendChild(new_complete);
+function items(event) {
+    // console.log(event.target.classList.contains('complete'))
+    if (event.target.classList.contains('complete')) {
+        const newComplete = document.createElement('li');
+        newComplete.innerHTML = event.target.parentElement.firstChild.textContent;
+        // deleteChildren(newComplete);
+        // TODO only text, not button
+        newComplete.classList.add('list-group-item', 'list-group-item-secondary');
+        completed_list.appendChild(newComplete);
 
+        // remove from local storage todos list
+        removeTodos(newComplete.innerHTML);
+        // add to local storage complete list
+        saveToLocal(newComplete.innerHTML, 'completes');
 
+        event.target.parentElement.remove();
+    } else if (event.target.classList.contains('delete')){
+        // remove from local storage todos list
+        removeTodos(event.target.parentElement.firstChild.textContent);
+
+        event.target.parentElement.remove();
+    }
+}
+
+function getTodos(event) {
+    console.log('getTodos')
 
 }
+
+function saveToLocal(item, listName) {
+    let items;
+    // if it doesn't exist
+    if (localStorage.getItem(listName) === null) {
+        items = [];
+    } else {
+        // parse it back into an array
+        items = JSON.parse(localStorage.getItem(listName));
+    }
+    items.push(item);
+    localStorage.setItem(listName, JSON.stringify(items)); // set back teh local storage
+}
+
+function removeTodos(todo) {
+    let todos;
+    if (localStorage.getItem('todos') === null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    console.log(todo.innerHTML); // li
+    const todoIndex = todo.innerHTML;
+    // console.log(todos.indexOf('soda'))
+    todos.splice(todos.indexOf(todoIndex), 1); // second argumenrt is amount.
+    localStorage.setItem('todos', JSON.stringify(todos)); // set back the local storage
+}
+
+document.getElementById("reset").addEventListener("click", function() {
+    localStorage.clear();
+    location.reload(); 
+}); 

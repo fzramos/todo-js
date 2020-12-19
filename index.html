@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="Description" content="Enter your description here"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>Title</title>
-    </head>
+    <title>To-Do List</title>
+  </head>
+
 <body class = "bg-dark text-light">
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
           
@@ -22,40 +24,35 @@
       <form id="task-form">
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" id="task_text" placeholder="Task Name" name="task_text">
+            <input type="text" class="form-control" id="input_box" placeholder="New Task Name" name="task_text">
           </div>
           <div class="col">
-            <button type="button" class="btn btn-primary" onclick="newItem()">Submit</button>
-        </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          <!-- <div class="col">
+            <button type="button" class="btn btn-warning">Reset</button>
+          </div> -->
         </div>
       </form>
+
+      <button id="reset" type="button" class="btn btn-warning">Reset</button>
+
+
       <div class="lists">
         <h1 class="pt-3">Tasks</h1>
         <ul class="list-group" id="todo-list">
-          <li class="list-group-item list-group-item-primary d-flex flex-row p-3">
-            <p>sdfasdf</p>
-            <button class="btn btn-primary ml-2" onclick="completedTask(this)">Completed</button>
-          </li>
-          <!-- TODO li item that is a button that lets you add new task via popup form -->
-          <!-- <li class="list-group-item">Vestibulum at eros</li> -->
         </ul>
 
         <h1 class="pt-3">Completed</h1>
         <ul class="list-group" id="completed-list">
-          <li style="display: hidden;" class="list-group-item list-group-item-primary d-flex flex-row p-3" id='completed-template'>
-          </li>
         </ul>
       </div>
     </div>
 
-    <!-- templates -->
 
-
-    <!-- TODO add completed list! -->
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
+    
 </body>
 </html>
