@@ -16,16 +16,13 @@ document.addEventListener('DOMContentLoaded', getTodos);
  */
 function addTodo(event) {
     event.preventDefault();
-    // console.log(event);
-    // console.log(input_box.value);
-
 
     const newTodo = document.createElement('li');
-    const removeBtn = document.createElement('button');
+    const completeBtn = document.createElement('button');
     // const editBtn = document.createElement('button');
     const deleBtn = document.createElement('button');
 
-    removeBtn.innerHTML = 'Complete';
+    completeBtn.innerHTML = 'Complete';
 
     // edit button
     // editBtn.type='button';
@@ -44,16 +41,19 @@ function addTodo(event) {
     newTodo.innerHTML = input_box.value;
     // adding bootstrap styling classes
     newTodo.classList.add('list-group-item', 'list-group-item-primary');
-    removeBtn.classList.add('btn', 'btn-primary', 'complete');
+    completeBtn.classList.add('btn', 'btn-primary', 'complete');
     
 
-    // Adding complete button to new todo list item
-    newTodo.appendChild(removeBtn);
+    // Adding buttons to new todo list item
+    newTodo.appendChild(completeBtn);
     newTodo.appendChild(deleBtn);
     // newTodo.appendChild(editBtn);
     // Adding new todo item to todo list
     todo_list.appendChild(newTodo);
 
+    // add new todo to local storage
+    saveToLocal(newTodo.innerHTML, 'todos');
+    
     // event.target.reset();
     form.reset();
 }
@@ -67,6 +67,12 @@ function items(event) {
         // TODO only text, not button
         newComplete.classList.add('list-group-item', 'list-group-item-secondary');
         completed_list.appendChild(newComplete);
+
+        // remove from local storage todos list
+        removeTodos(newComplete.innerHTML);
+        // add to local storage complete list
+        saveToLocal(newComplete.innerHTML, 'todos');
+
         event.target.parentElement.remove();
     } else if (event.target.classList.contains('delete')){
         event.target.parentElement.remove();
@@ -78,35 +84,29 @@ function getTodos(event) {
 
 }
 
+function saveToLocal(item, listName) {
+    let items;
+    // if it doesn't exist
+    if (localStorage.getItem(listName) === null) {
+        items = [];
+    } else {
+        // parse it back into an array
+        items = JSON.parse(localStorage.getItem(listName));
+    }
+    items.push(item);
+    localStorage.setItem(listName, JSON.stringify(items)); // set back teh local storage
+}
 
-// const newItem = () => {
-//     let task_text = document.getElementById('task_text').value;
-//     // console.log(task_text);
-
-//     // copying list item and appending new todo-task list item
-//     // const list_item = document.createElement('')
-//     let todo_item = document.getElementById('todo-list').firstElementChild;
-//     console.log(todo_item)
-//     let new_todo_item = todo_item.cloneNode(true);
-
-//     new_todo_item.firstElementChild.innerHTML = task_text;
-//     const task_form = document.getElementById('task-form').reset();
-
-//     document.getElementById("todo-list").appendChild(new_todo_item);
-// }
-
-// const completedTask = (elmnt) => {
-//     console.log(elmnt.parentElement);
-//     // TODO will move the contents of this element to the Completed list !without! button
-//     // completed-list = 
-//     // completed-list.appendChild(todo-list)
-//     const completed_template = document.getElementById('completed-template');
-//     const new_complete = completed_template.cloneNode(true);
-//     new_complete.appendChild(elmnt.parentElement.firstElementChild)
-//     elmnt.parentElement.remove();
-//     new_complete.hidden = 'false';
-//     document.getElementById("completed-list").appendChild(new_complete);
-
-
-
-// }
+function removeTodos(todo) {
+    let todos;
+    if (localStorage.getItem('todos') === null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    console.log(todo.innerHTML); // li
+    const todoIndex = todo.innerHTML;
+    // console.log(todos.indexOf('soda'))
+    todos.splice(todos.indexOf(todoIndex), 1); // second argumenrt is amount.
+    localStorage.setItem('todos', JSON.stringify(todos)); // set back the local storage
+}
