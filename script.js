@@ -15,10 +15,15 @@ document.addEventListener('DOMContentLoaded', getTodos);
  * Adds todo-list item using user form input text
  * @param {HTMLFormElement} event
  */
-function addTodo(event) {
-    event.preventDefault();
+function addTodo(event='recreate', text = '') {
+    if (event != 'recreate') {
+        event.preventDefault();
+        // Adding input data to new todo list item
+        text = input_box.value;
+    } 
 
     const newTodo = document.createElement('li');
+    newTodo.innerHTML = text;
     const completeBtn = document.createElement('button');
     // const editBtn = document.createElement('button');
     const deleBtn = document.createElement('button');
@@ -37,9 +42,6 @@ function addTodo(event) {
     deleBtn.classList.add('btn', 'btn-danger', 'delete');
     deleBtn.innerHTML = "Delete"
 
-
-    // Adding input data to new todo list item
-    newTodo.innerHTML = input_box.value;
     // adding bootstrap styling classes
     newTodo.classList.add('list-group-item', 'list-group-item-primary');
     completeBtn.classList.add('btn', 'btn-primary', 'complete');
@@ -84,7 +86,24 @@ function items(event) {
 }
 
 function getTodos(event) {
-    console.log('getTodos')
+    let todos;
+    let completes;
+    if (localStorage.getItem('todos') === null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'));
+        // Recreate previous session todos'
+        todos.forEach(function (todo) {
+            addTodo(event='recreate', text = todo)
+        })
+    }
+
+    if (localStorage.getItem('completes') === null) {
+        completes = [];
+        return;
+    } else {
+        todos = JSON.parse(localStorage.getItem('completes'));
+    }
 
 }
 
