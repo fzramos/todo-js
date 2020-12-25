@@ -20,6 +20,8 @@ function addTodo(event='recreate', text = '') {
         event.preventDefault();
         // Adding input data to new todo list item
         text = input_box.value;
+        // add new todo to local storage
+        saveToLocal(text, 'todos');
     } 
 
     const newTodo = document.createElement('li');
@@ -54,9 +56,6 @@ function addTodo(event='recreate', text = '') {
     // Adding new todo item to todo list
     todo_list.appendChild(newTodo);
 
-    // add new todo to local storage
-    saveToLocal(input_box.value, 'todos');
-    
     // event.target.reset();
     form.reset();
 }
@@ -88,23 +87,24 @@ function items(event) {
 function getTodos(event) {
     let todos;
     let completes;
-    if (localStorage.getItem('todos') === null) {
-        todos = [];
-    } else {
+    if (localStorage.getItem('todos') != null) {
         todos = JSON.parse(localStorage.getItem('todos'));
-        // Recreate previous session todos'
+        // Recreate previous session todos
         todos.forEach(function (todo) {
             addTodo(event='recreate', text = todo)
         })
     }
 
-    if (localStorage.getItem('completes') === null) {
-        completes = [];
-        return;
-    } else {
-        todos = JSON.parse(localStorage.getItem('completes'));
+    if (localStorage.getItem('completes') != null) {
+        completes = JSON.parse(localStorage.getItem('completes'));
+        // Recreate previous session completes
+        completes.forEach(function (complete) {
+            const newComplete = document.createElement('li');
+            newComplete.innerHTML = complete;
+            newComplete.classList.add('list-group-item', 'list-group-item-secondary');
+            completed_list.appendChild(newComplete);    
+        })
     }
-
 }
 
 function saveToLocal(item, listName) {
